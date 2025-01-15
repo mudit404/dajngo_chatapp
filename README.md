@@ -90,3 +90,22 @@ Start the application using Daphne, the ASGI server compatible with Django Chann
 daphne -p 8000 django_chatapp.asgi:application
 ```
 Note: Ensure you are in the project root directory (django-chat-app) when running this command.
+
+
+## Try deployed version
+
+- go to:
+    https://dajngo-chatapp.onrender.com/login
+
+    Credentials:
+    Username: mudit
+    Password: Admin@123
+
+    
+
+- signup:
+    https://dajngo-chatapp.onrender.com/signup
+
+
+- chat:
+
