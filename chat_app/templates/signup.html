@@ -2,10 +2,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Sign Up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-  </form>
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4 shadow" style="width: 350px;">
+        <h2 class="text-center mb-4">Sign Up</h2>
+        <form method="post">
+          {% csrf_token %}
+          {% for field in form %}
+              <div class="form-group">
+                  <label for="{{ field.id_for_label }}"><strong>{{ field.label }}</strong></label> <br>
+                  {{ field }}
+                  {% if field.help_text %}
+                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                  {% for error in field.errors %}
+                      <div class="text-danger">{{ error }}</div>
+                  {% endfor %}
+              </div>
+          {% endfor %}
+            <button type="submit" class="btn btn-success btn-block">Sign Up</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

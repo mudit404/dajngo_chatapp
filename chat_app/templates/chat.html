@@ -90,12 +90,22 @@
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
             const chatLog = document.getElementById('chat-log');
-            const messageElement = document.createElement('div');
-            messageElement.classList.add(data.sender === '{{ request.user.username }}' ? 'sent' : 'received');
-            messageElement.innerHTML = '<p><strong>' + data.sender + ':</strong> ' + data.message + '</p>';
-            chatLog.appendChild(messageElement);
+            
+            const wrapperDiv = document.createElement('div');
+            wrapperDiv.classList.add('d-flex', data.sender === '{{ request.user.username }}' ? 'justify-content-end' : 'justify-content-start');
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', data.sender === '{{ request.user.username }}' ? 'sent' : 'received');
+            
+            messageDiv.innerHTML = '<p>' + data.message + '</p><small class="text-muted">Just now</small>';
+            
+            wrapperDiv.appendChild(messageDiv);
+            chatLog.appendChild(wrapperDiv);
+            
             chatLog.scrollTop = chatLog.scrollHeight;
-            console.log("[ONMESSAGE] Message received:", data);
+
+            // Force reflow to apply styles immediately
+            messageDiv.offsetHeight;
         };
 
         chatSocket.onclose = function(e) {
