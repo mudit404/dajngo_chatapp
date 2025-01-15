@@ -97,6 +97,9 @@ Note: Ensure you are in the project root directory (django-chat-app) when runnin
 - go to:
     https://dajngo-chatapp.onrender.com/login
 
+<img width="1463" alt="Screenshot 2025-01-15 at 4 35 24 PM" src="https://github.com/user-attachments/assets/d66c9d37-1ebb-49e1-a0a1-19bfb433eadf" />
+
+
     Credentials:
     Username: mudit
     Password: Admin@123
@@ -105,7 +108,10 @@ Note: Ensure you are in the project root directory (django-chat-app) when runnin
 
 - signup:
     https://dajngo-chatapp.onrender.com/signup
+<img width="1463" alt="Screenshot 2025-01-15 at 4 35 32 PM" src="https://github.com/user-attachments/assets/9758a471-e6ec-4855-9b37-0da13e14c5f4" />
 
 
 - chat:
+
+<img width="1463" alt="image" src="https://github.com/user-attachments/assets/f784260e-a8f9-4530-99ad-8973e1ac5dfc" />
 
