@@ -19,7 +19,7 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
-@login_required
+@login_required(login_url='signup')
 def home(request):
     users = User.objects.exclude(id=request.user.id)
     return render(request, 'home.html', {'users': users})
