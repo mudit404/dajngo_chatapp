@@ -1,0 +1,175 @@
+<!-- chat_app/templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags and other head elements -->
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>ChatApp</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Custom styles */
+        body {
+            overflow-x: hidden;
+            padding-top: 56px; /* Adjust for fixed navbar height */
+        }
+        .messages {
+            background-color: #f1f1f1;
+            padding: 10px;
+            height: 400px;
+            overflow-y: auto;
+        }
+        .message {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .message.sent {
+            background-color: #dcf8c6;
+            align-self: flex-end;
+        }
+        .message.received {
+            background-color: #D3D3D3;
+            align-self: flex-start;
+        }
+        .chat_window {
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+        .chat_header {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .chat_body {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat_footer {
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+        .chat_footer .input-group {
+            width: 100%;
+        }
+        /* Sidebar styles */
+        .sidebar {
+            transition: margin-left 0.3s;
+        }
+        .sidebar.collapsed {
+            margin-left: -250px; /* Adjust based on sidebar width */
+        }
+        .content {
+            transition: margin-left 0.3s;
+        }
+        .content.expanded {
+            margin-left: 0;
+        }
+        /* Adjust padding for footer */
+        .content-wrapper {
+            min-height: calc(100vh - 56px - 40px); /* Viewport height minus navbar and footer heights */
+        }
+        /* Footer styles */
+        .footer {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+        }
+        /* Ensure the content doesn't overflow horizontally when sidebar is collapsed */
+        @media (max-width: 767.98px) {
+            .sidebar.collapsed {
+                margin-left: 0;
+            }
+        }
+        #sidebarCollapse {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#">ChatApp</a>
+        <button class="btn btn-outline-secondary" type="button" id="sidebarCollapse" aria-label="Toggle sidebar">
+            ←
+        </button>
+    </nav>
+
+    <div class="wrapper d-flex">
+        <!-- Sidebar -->
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+            {% block sidebar %}
+            <!-- Sidebar content will be injected here -->
+            {% endblock %}
+        </nav>
+
+        <!-- Main Content -->
+        <div class="content flex-fill">
+            <div class="content-wrapper">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <!-- Footer -->
+            <footer class="footer">
+                <p>Made with ❤️ by mudit</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Include JavaScript dependencies for Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebarMenu').toggleClass('collapsed');
+                $('.content').toggleClass('expanded');
+            });
+        });
+        document.getElementById('sidebarCollapse').addEventListener('click', function() {
+            const button = this;
+            if (button.textContent === '→') {
+                button.textContent = '←'; // Change to right arrow
+            } else {
+                button.textContent = '→'; // Change back to left arrow
+            }
+        });
+
+        function adjustPageScale() {
+            var screenWidth = window.innerWidth;
+            var scale = 1; 
+        
+            if (screenWidth > 992 && screenWidth <= 1600) {
+                scale = 0.9; // 90%
+            } else if (screenWidth >= 700 && screenWidth <= 767) {
+                scale = 0.8; // 80%
+            } else if (screenWidth >= 600 && screenWidth < 700) {
+                scale = 0.75; // 75%
+            } else if (screenWidth <= 600) {
+                scale = 0.5; // 50%
+            }
+
+            document.body.style.transform = 'scale(' + scale + ')';
+            document.body.style.transformOrigin = '0 0';
+
+            document.body.style.width = (100 / scale) + '%';
+            document.body.style.height = (100 / scale) + '%';
+        }
+
+        // event listeners
+        window.addEventListener('load', adjustPageScale);
+        window.addEventListener('resize', adjustPageScale);
+    </script>
+</body>
+</html>
